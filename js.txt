@@ -1,0 +1,115 @@
+how to use call , apply, bind functions?
+sol:
+We use the Bind () method primarily to call a function with the this value set explicitly. It other words, bind () allows us to easily set which specific object will be bound to this when a function or method is invoked.
+
+This might seem relatively trivial, but often the this value in methods and functions must be set explicitly when you need a specific object bound to the function’s this value.
+
+The need for bind usually occurs when we use the this keyword in a method and we call that method from a receiver object; in such cases, sometimes this is not bound to the object that we expect it to be bound to, resulting in errors in our applications. Don’t worry if you don’t fully comprehend the preceding sentence. It will become clear like teardrop in a moment.
+
+EX:
+
+//            <button>Get Random Person</button>?
+?//        <input type="text">?
+?
+?
+?var user = {
+    data        :[
+        {name:"T. Woods", age:37},
+        {name:"P. Mickelson", age:43}
+    ],
+    clickHandler:function (event) {
+        var randomNum = ((Math.random () * 2 | 0) + 1) - 1; // random number between 0 and 1?
+?
+        // This line is adding a random person from the data array to the text field?
+        $ ("input").val (this.data[randomNum].name + " " + this.data[randomNum].age);
+    }
+?
+}
+?
+?// Assign an eventHandler to the button's click event?
+$ ("button").click (user.clickHandler);
+
+EX2:
+    // This data variable is a global variable?
+            var data = [
+                {name:"Samantha", age:12},
+                {name:"Alexis", age:14}
+            ]
+?
+            var user = {
+                // local data variable?
+                data    :[
+                    {name:"T. Woods", age:37},
+                    {name:"P. Mickelson", age:43}
+                ],
+                showData:function (event) {
+                    var randomNum = ((Math.random () * 2 | 0) + 1) - 1; // random number between 0 and 1?
+?
+                    console.log (this.data[randomNum].name + " " + this.data[randomNum].age);
+                }
+?
+            }
+?
+            // Assign the showData method of the user object to a variable?
+            var showDataVar = user.showData;
+?
+            showDataVar (); // Samantha 12 (from the global data array, not from the local data array
+
+CALL methods:
+The Apply and Call methods are two of the most often used Function methods in JavaScript, and for good reason: they allow us to borrow functions and set the this value in function invocation. In addition, the apply function in particular allows us to execute a function with an array of parameters, such that each parameter is passed to the function individually when the function executes—great for variadic functions; a variadic function takes varying number of arguments, not a set number of arguments as most functions do.
+EX:
+   // Define an object with some properties and a method?
+    // We will later pass the method as a callback function to another function?
+    var clientData = {
+    id: 094545,
+    fullName: "Not Set",
+    // setUserName is a method on the clientData object?
+    setUserName: function (firstName, lastName)  {
+    // this refers to the fullName property in this object?
+    this.fullName = firstName + " " + lastName;
+    }
+    }
+
+EX:
+ var gameController = {
+                    scores  :[20, 34, 55, 46, 77],
+                    avgScore:null,
+                    players :[
+                        {name:"Tommy", playerID:987, age:23},
+                        {name:"Pau", playerID:87, age:33}
+                    ]
+                }
+?
+                var appController = {
+                    scores  :[900, 845, 809, 950],
+                    avgScore:null,
+                    avg     :function () {
+?
+                        var sumOfScores = this.scores.reduce (function (prev, cur, index, array) {
+                            return prev + cur;
+                        });
+?
+                        this.avgScore = sumOfScores / this.scores.length;
+                    }
+                }
+?
+                // Note that we are using the apply () method, so the 2nd argument has to be an array?
+                appController.avg.apply (gameController);
+                console.log (gameController.avgScore); // 46.4?
+?
+                // appController.avgScore is still null; it was not updated, only gameController.avgScore was updated?
+                console.log (appController.avgScore); // null?
+
+
+    var students = ["Peter Alexander", "Michael Woodruff", "Judy Archer", "Malcolm Khan"];
+?
+    // No specific parameters defined, because ANY number of parameters are accepted?
+    function welcomeStudents () {
+        var args = Array.prototype.slice.call (arguments);
+?
+        var lastItem = args.pop ();
+        console.log ("Welcome " + args.join (", ") + ", and " + lastItem + ".");
+    }
+?
+    welcomeStudents.apply (null, students);
+    // Welcome Peter Alexander, Michael Woodruff, Judy Archer, and Malcolm Khan.
