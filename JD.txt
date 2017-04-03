@@ -1,0 +1,27 @@
+
+Front End Developer
+Reston, VA
+$50/Hr on C2C
+ 
+Key responsibilities:
+·       Lead the technical coding and full life-cycle development of complex transactional web pages for mobile and desktop views.
+·       Drive strategy, best practices, standards, and guidelines.
+·       Quickly prototype and iterate on ideas.
+·       Partner and work closely with the User Experience (UX) team to translate wireframes and designs into code.
+·       Participate in determining the technical roadmap and strategy for the underlying platform.
+·       Collaborate with business and cross-functional team members as needed.
+·       Strong understanding of REST API
+ 
+Qualifications:
+·       Proven solid experience with AngularJS 1 with knowledge or experience using the new Angular 2.x   framework.
+·       5- 7 years of hands-on experience utilizing JavaScript, HTML/HTML5 and CSS/CSS3.
+·       In-depth knowledge of JavaScript frameworks and patterns.
+·       Proficient with open source web frameworks (Angular) and building hybrid mobile/desktop    applications.
+·       Proficient with web accessibility guideline standards.
+ 
+Preferred:
+ 
+·       Expert in using JavaScript and JQuery with server side technology.
+<![if !supportLists]>·       <![endif]>  Experience with a Content Management System (Adobe Experience Manager preferred).
+
+<![if !supportLists]>·       <![endif]>  Strong understanding of AJAX, XML, and JSON.

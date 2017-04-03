@@ -1,0 +1,149 @@
+The setInterval() method calls a function or evaluates an expression at specified intervals (in milliseconds).
+
+The setInterval() method will continue calling the function until clearInterval() is called, or the window is closed.
+
+The ID value returned by setInterval() is used as the parameter for the clearInterval() method.
+
+1)
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to wait 3 seconds, then alert "Hello".</p>
+<p>After clicking away the alert box, an new alert box will appear in 3 seconds. This goes on forever...</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+var myVar;
+
+function myFunction() {
+    myVar = setInterval(alertFunc, 3000);
+}
+
+function alertFunc() {
+  alert("Hello!");
+}
+</script>
+
+</body>
+</html>
+
+2)
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>A script on this page starts this clock:</p>
+<p id="demo"></p>
+
+<script>
+var myVar = setInterval(function(){ myTimer() }, 1000);
+
+function myTimer() {
+    var d = new Date();
+    var t = d.toLocaleTimeString();
+    document.getElementById("demo").innerHTML = t;
+}
+</script>
+
+</body>
+</html>
+3)
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>A script on this page starts this clock:</p>
+<p id="demo"></p>
+
+<button onclick="myStopFunction()">Stop time</button>
+
+<script>
+var myVar = setInterval(function(){ myTimer() }, 1000);
+
+function myTimer() {
+    var d = new Date();
+    var t = d.toLocaleTimeString();
+    document.getElementById("demo").innerHTML = t;
+}
+
+function myStopFunction() {
+    clearInterval(myVar);
+}
+</script>
+
+</body>
+</html>
+4)
+<!DOCTYPE html>
+<html>
+<style>
+#myProgress {
+  width: 100%;
+  height: 30px;
+  position: relative;
+  background-color: #ddd;
+}
+
+#myBar {
+  background-color: #4CAF50;
+  width: 10px;
+  height: 30px;
+  position: absolute;
+}
+</style>
+<body>
+
+<h1>JavaScript Progress Bar</h1>
+
+<div id="myProgress">
+  <div id="myBar"></div>
+</div>
+
+<br>
+<button onclick="move()">Click Me</button> 
+
+<script>
+function move() {
+  var elem = document.getElementById("myBar");   
+  var width = 0;
+  var id = setInterval(frame, 10);
+  function frame() {
+    if (width == 100) {
+      clearInterval(id);
+    } else {
+      width++; 
+      elem.style.width = width + '%'; 
+    }
+  }
+}
+</script>
+
+</body>
+</html>
+
+5)
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>In this example, the setInterval() method executes the setColor() function once every 300 milliseconds, which will toggle between two background colors.</p>
+
+<button onclick="stopColor()">Stop Toggling</button>
+
+<script>
+var myVar = setInterval(function(){ setColor() }, 300);
+ 
+function setColor() {
+  var x = document.body;
+  x.style.backgroundColor = x.style.backgroundColor == "yellow" ? "pink" : "yellow";
+}
+ 
+function stopColor() {
+  clearInterval(myVar);
+}
+</script>
+
+</body>
+</html>

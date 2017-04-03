@@ -1,0 +1,142 @@
+calling services with xmlhttp request								
+Actually there are number of ways for calling a web service. We can make use of Jquery, YUI or else we can also make use of Ajax tool kit provided by microsoft.	
+
+examples:
+1)
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+ 
+namespace SOAPHEADEREXAMPLE
+{
+    /// <summary>
+    /// Summary description for WebService1
+    /// </summary>
+    [WebService(Namespace = "http://tempuri.org/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    [System.Web.Script.Services.ScriptService]
+    public class WebService1 : System.Web.Services.WebService
+    {
+ 
+        [WebMethod]
+        public string HelloWorld()
+        {
+            return "Hello World pavan";
+        }
+        [WebMethod]
+        public string AddResults(string a,string b)
+        {
+            int addResult = Convert.ToInt32(a) + Convert.ToInt32(b);
+            return addResult.ToString();
+        }
+    }
+}
+
+2)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" >
+ 
+        var xmlHTTP ;
+         if (window.XMLHttpRequest) {
+        xmlHTTP= new window.XMLHttpRequest;
+    }
+    else {
+        try {
+            xmlHTTP= new ActiveXObject("MSXML2.XMLHTTP.3.0");
+        }
+        catch(ex) {
+             
+        }
+    }
+xmlHTTP.open ("POST", "http://localhost:1525/WebService1.asmx",
+true);
+xmlHTTP.setRequestHeader( "Content-Type","text/xml; charset=utf-8");
+xmlHTTP.setRequestHeader(
+"SOAPAction", "http://tempuri.org/HelloWorld");
+ 
+ 
+strRequest = "<?xml version='1.0' encoding='utf-8'?>";
+        strRequest = strRequest + "<soap:Envelope " +
+"xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " +
+"xmlns:xsd='http://www.w3.org/2001/XMLSchema' " +
+"xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>";
+        strRequest = strRequest + " <soap:Body>";
+        strRequest = strRequest + "<HelloWorld xmlns='http://tempuri.org/' />";
+        strRequest = strRequest + "</soap:Body>";
+        strRequest = strRequest + "</soap:Envelope>";
+ 
+ 
+xmlHTTP.onreadystatechange = function () {
+    if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
+        alert(xmlHTTP.responseXML.xml);
+    }
+}
+xmlHTTP.send(strRequest);
+ 
+//alert(xmlHTTP.responseXML.xml);
+//var resp = unescape(xmlHTTP.responseXML.xml);
+    </script>
+</head>
+<body>
+ 
+</body>
+</html>
+
+3)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" >
+ 
+        var xmlHTTP;
+        if (window.XMLHttpRequest) {
+            xmlHTTP = new window.XMLHttpRequest;
+        }
+        else {
+            try {
+                xmlHTTP = new ActiveXObject("MSXML2.XMLHTTP.3.0");
+            }
+            catch (ex) {
+ 
+            }
+        }
+        xmlHTTP.open("POST", "http://localhost:1525/WebService1.asmx",true);
+        xmlHTTP.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
+        xmlHTTP.setRequestHeader(
+"SOAPAction", "http://tempuri.org/AddResults");
+ 
+        strRequest = "<?xml version='1.0' encoding='utf-8'?>";
+        strRequest = strRequest + "<soap:Envelope " +
+"xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' " +
+"xmlns:xsd='http://www.w3.org/2001/XMLSchema' " +
+"xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>";
+        strRequest = strRequest + " <soap:Body>";
+        strRequest = strRequest + "<AddResults xmlns='http://tempuri.org/'><a>10</a><b>20</b></AddResults>";
+        strRequest = strRequest + "</soap:Body>";
+        strRequest = strRequest + "</soap:Envelope>";
+ 
+ 
+        xmlHTTP.onreadystatechange = function () {
+            if (xmlHTTP.readyState == 4 && xmlHTTP.status == 200) {
+                alert(xmlHTTP.responseXML.xml);
+            }
+        }
+        xmlHTTP.send(strRequest);
+ 
+        //alert(xmlHTTP.responseXML.xml);
+        //var resp = unescape(xmlHTTP.responseXML.xml);
+    </script>
+</head>
+<body>
+ 
+</body>
+</html>									
